@@ -4,12 +4,13 @@ filetype off
 set rtp+=~/.vim/vundle.git/
 call vundle#rc()
 
+Bundle 'daic-h/ap_dark8'
+
 Bundle 'rails.vim'
 Bundle 'surround.vim'
 Bundle 'YankRing.vim'
 Bundle 'AutoClose'
 
-Bundle 'vim-scripts/Lucius'
 Bundle 'thinca/vim-quickrun'
 Bundle 'thinca/vim-ref'
 Bundle 'motemen/git-vim'
@@ -22,8 +23,7 @@ Bundle 'h1mesuke/unite-outline'
 
 syntax on
 filetype indent plugin on
-set t_Co=256
-colorscheme lucius
+colorscheme ap_dark8
 
 "-------------------------------------------------------------------------------
 " Base Setting
@@ -50,10 +50,10 @@ set nostartofline
 " Mapping <jump-tag>
 "-------------------------------------------------------------------------------
 " コマンド       ノーマルモード 挿入モード コマンドラインモード ビジュアルモード
-" map/noremap           @            -              -                  @ 
+" map/noremap           @            -              -                  @
 " nmap/nnoremap         @            -              -                  -
-" imap/inoremap         -            @              -                  - 
-" cmap/cnoremap         -            -              @                  -  
+" imap/inoremap         -            @              -                  -
+" cmap/cnoremap         -            -              @                  -
 " vmap/vnoremap         -            -              -                  @
 " map!/noremap!         -            @              @                  -
 "-------------------------------------------------------------------------------
@@ -116,8 +116,8 @@ nnoremap <silent> [Prefix]V :vsplit<CR><C-w><C-w>:edit .<CR>
 nnoremap <silent> [Prefix]b :<C-u>Unite buffer file_mru<CR>
 nnoremap <silent> [Prefix]o :<C-u>Unite outline<CR>
 nnoremap <silent> [Prefix]d :bd<CR>
-nnoremap <silent> [Prefix]n :bn<CR> 
-nnoremap <silent> [Prefix]p :bp<CR> 
+nnoremap <silent> [Prefix]n :bn<CR>
+nnoremap <silent> [Prefix]p :bp<CR>
 
 "unite.vim
 nnoremap <silent> ,uf :<C-u>Unite file<CR>
@@ -149,9 +149,9 @@ nnoremap [Prefix]j <C-f>
 nnoremap [Prefix]k <C-b>
 
 "Screen Separation
-nnoremap [Prefix]c <C-w>c<CR><CR> 
-"nnoremap [Prefix]o <C-w>o<CR><CR> 
-nnoremap [Prefix]= <C-w>=<CR><CR> 
+nnoremap [Prefix]c <C-w>c<CR><CR>
+"nnoremap [Prefix]o <C-w>o<CR><CR>
+nnoremap [Prefix]= <C-w>=<CR><CR>
 
 "Tab
 nnoremap [Prefix]t :tabnew<CR>
@@ -211,7 +211,7 @@ au BufNewFile,BufRead * set iminsert=0
 "-------------------------------------------------------------------------------
 " Color
 "-------------------------------------------------------------------------------
-hi clear Pmenu 
+hi clear Pmenu
 hi Pmenu ctermbg=white ctermfg=black
 hi PmenuSel ctermbg=black ctermfg=white
 
@@ -272,7 +272,7 @@ hi PmenuSel ctermbg=black ctermfg=white
 "-------------------------------------------------------------------------------
 " Plugin Setting
 "-------------------------------------------------------------------------------
-let g:yankring_history_dir='$HOME/.vim/bundle/YankRing.vim/'                                                                        
+let g:yankring_history_dir='$HOME/.vim/bundle/YankRing.vim/'
 
 "unite.vim
 let g:unite_enable_start_insert = 1
@@ -289,16 +289,17 @@ inoremap <expr><C-y> neocomplcache#close_popup()
 inoremap <expr><C-e> neocomplcache#cancel_popup()
 inoremap <expr><C-h> neocomplcache#smart_close_popup()."\<C-h>"
 " Enable heavy omni completion.
-"if !exists('g:neocomplcache_omni_patterns')
-"  let g:neocomplcache_omni_patterns = {}
-"endif
-"let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
+if !exists('g:neocomplcache_omni_patterns')
+  let g:neocomplcache_omni_patterns = {}
+endif
+let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
 
-"quickrun
+" quickrun
+" Rspec 1.x
 augroup RSpec
 autocmd!
 autocmd BufWinEnter,BufNewFile *_spec.rb set filetype=ruby.rspec
 augroup END
-let g:quickrun_config = {} 
+let g:quickrun_config = {}
 let g:quickrun_config = {'*': {'split': ''}}
 let g:quickrun_config['ruby.rspec'] = {'command': "spec", 'cmdopt': "-l {line('.')} -cfs"}
